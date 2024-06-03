@@ -11,9 +11,10 @@ d3.json('../data/tree.json').then(data => {
     var simulation = d3.forceSimulation(data.nodes)
         .force('link', d3.forceLink(data.edges)
             .id(d => d.id)
-            .distance(d => d.type === 0 ? 10 : 50))
-        .force('charge', d3.forceManyBody().strength(-50))
-        .force('center', d3.forceCenter(width / 2, height / 2));
+            .distance(d => d.type === 0 ? 50 : 100))
+        .force('charge', d3.forceManyBody().strength(0))
+        .force('center', d3.forceCenter(width / 2, height / 2))
+        .force('collide', d3.forceCollide().radius(15));
 
     var svg = d3.select('svg')
         .attr('width', width)
@@ -75,5 +76,25 @@ d3.json('../data/tree.json').then(data => {
         // nodeLabels.attr('x', d => d.x)
         //     .attr('y', d => d.y);
     });
+
+    data.nodes[0].fx = width / 2;
+    data.nodes[0].fy = height / 2;
+    var fixedNodeValues = [
+        {radius: 50, num: 5},
+        {radius: 100, num: 10},
+        {radius: 150, num: 10},
+        {radius: 200, num: 10}
+    ];
+    let nodeIndex = 1;
+    for(n in fixedNodeValues) {
+        let angleStep = 2 * Math.PI / fixedNodeValues[n].num;
+        let num = fixedNodeValues[n].num
+        let radius = fixedNodeValues[n].radius;
+        for(let i = 0; i < num; i++) {
+            data.nodes[nodeIndex + i].fx = width / 2 + radius * Math.cos(i * angleStep);
+            data.nodes[nodeIndex + i].fy = height / 2 + radius * Math.sin(i * angleStep);
+        }
+        nodeIndex += num;
+    }
     
 });
