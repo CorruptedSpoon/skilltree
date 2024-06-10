@@ -77,6 +77,7 @@ d3.json('../data/tree.json').then(data => {
         //     .attr('y', d => d.y);
     });
 
+    // statically position all the nodes
     data.nodes[0].fx = width / 2;
     data.nodes[0].fy = height / 2;
     var fixedNodeValues = [
@@ -86,15 +87,18 @@ d3.json('../data/tree.json').then(data => {
         {radius: 200, num: 10}
     ];
     let nodeIndex = 1;
+    let lastAngleStep = 0;
     for(n in fixedNodeValues) {
         let angleStep = 2 * Math.PI / fixedNodeValues[n].num;
         let num = fixedNodeValues[n].num
         let radius = fixedNodeValues[n].radius;
         for(let i = 0; i < num; i++) {
-            data.nodes[nodeIndex + i].fx = width / 2 + radius * Math.cos(i * angleStep);
-            data.nodes[nodeIndex + i].fy = height / 2 + radius * Math.sin(i * angleStep);
+            data.nodes[nodeIndex + i].fx = width / 2 + radius * Math.cos(i * angleStep - lastAngleStep / 4);
+            data.nodes[nodeIndex + i].fy = height / 2 + radius * Math.sin(i * angleStep - lastAngleStep / 4);
         }
         nodeIndex += num;
+        console.log(fixedNodeValues[+n + 1]);
+        if(fixedNodeValues[+n + 1] && num < fixedNodeValues[+n + 1].num) lastAngleStep = angleStep;
     }
     
 });
