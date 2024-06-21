@@ -1,17 +1,18 @@
 import React, { useEffect } from 'react';
 import * as d3 from 'd3';
+import d3Tip from 'd3-tip';
 
 const Visualization = () => {
     useEffect(() => {
-        d3.json('../data/tree.json').then(data => {
+        d3.json('tree.json').then(data => {
             const width = 1000;
             const height = 1000;
             
-            var tip = d3.tip()
+            var tip = d3Tip()
                 .attr('class', 'd3-tip')
                 .offset([-10, 0])
                 .style('background', 'white')
-                .html(d => `<strong>${d.title}</strong><br><small>${d.description}</small>`);
+                .html(d => `<strong>${d.target.__data__.title}</strong><br><small>${d.target.__data__.description}</small>`);
             
             var simulation = d3.forceSimulation(data.nodes)
                 .force('link', d3.forceLink(data.edges)
@@ -30,7 +31,7 @@ const Visualization = () => {
                 .data(data.edges)
                 .enter().append('line')
                 .attr('class', 'link')
-                .style('stroke', 'black'); 
+                .style('stroke', 'white'); 
         
             var color = d3.scaleOrdinal(d3.schemeCategory10);
             var selectedNodes = new Set();
@@ -47,13 +48,13 @@ const Visualization = () => {
                 .on('mouseover', tip.show)
                 .on('mouseout', tip.hide)
                 .on('click', function(d) {
-                    if (d.id !== data.nodes[0].id) {
+                    if (d.target.__data__.id !== data.nodes[0].id) {
                         var linked = data.edges.some(e =>
-                            selectedNodes.has(e.source.id) && e.target.id === d.id ||
-                            selectedNodes.has(e.target.id) && e.source.id === d.id
+                            selectedNodes.has(e.source.id) && e.target.id === d.target.__data__.id ||
+                            selectedNodes.has(e.target.id) && e.source.id === d.target.__data__.id
                         );
                         if (linked) {
-                            selectedNodes.add(d.id);
+                            selectedNodes.add(d.target.__data__.id);
                             d3.select(this).attr('fill', 'gold');       
                         }
                     }
@@ -102,7 +103,7 @@ const Visualization = () => {
                     data.nodes[nodeIndex + i].fy = height / 2 + radius * Math.sin(i * angleStep - lastAngleStep / 4);
                 }
                 nodeIndex += num;
-                console.log(fixedNodeValues[+n + 1]);
+                console.log(fixedNodeValues[n]);
                 if(fixedNodeValues[+n + 1] && num < fixedNodeValues[+n + 1].num) lastAngleStep = angleStep;
             }
             
@@ -110,7 +111,9 @@ const Visualization = () => {
     }, []);
 
     return (
-        <div id="skilltree"></div>
+        <div id="skilltree">
+            <svg></svg>
+        </div>
     );
 }
 
