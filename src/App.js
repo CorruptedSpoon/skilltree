@@ -1,10 +1,13 @@
 import './App.css';
-import Visualization from './Skilltree';
+import Visualization from './components/Skilltree';
+import DragWrapper from './components/DragWrapper';
 
 function App() {
   return (
     <div className="App">
-      <Visualization />
+      <DragWrapper>
+        <Visualization />
+      </DragWrapper>
     </div>
   );
 }

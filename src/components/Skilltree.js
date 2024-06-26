@@ -5,8 +5,8 @@ import d3Tip from 'd3-tip';
 const Visualization = () => {
     useEffect(() => {
         d3.json('tree.json').then(data => {
-            const width = 1000;
-            const height = 1000;
+            const width = 500;
+            const height = 500;
             
             var tip = d3Tip()
                 .attr('class', 'd3-tip')

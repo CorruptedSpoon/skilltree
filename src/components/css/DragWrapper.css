@@ -1,0 +1,59 @@
+.react-draggable {
+    border: 4px solid #ccc;
+    border-radius: 8px;
+}
+
+.drag-handle {
+    height: 17px;
+    width: 100%;
+    background: #ccc;
+    cursor: move;
+}
+
+.close-button, .min-button, .max-button {
+    position: absolute;
+    top: 0px;
+    height: 13px;
+    width: 13px;
+    padding: 0;
+    cursor: pointer;
+    border: 0px solid;
+    border-radius:50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .ico {
+        display: none;
+        text-align: center;
+        font-weight: bold;
+    }
+}
+
+.close-button:hover, .min-button:hover, .max-button:hover {
+    .ico {
+        display: block;
+    }
+}
+
+.close-button {
+    left: 6px;
+    background: #e44;
+    border-color: #a22;
+    color: #611;
+}
+
+.min-button {
+    left: 26px;
+    background: #ea4;
+    border-color: #a62;
+    color: #611;
+}
+
+.max-button {
+    display: none;
+    left: 26px;
+    background: #4e4;
+    border-color: #2a2;
+    color: #161;
+}
