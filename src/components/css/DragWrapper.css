@@ -25,15 +25,17 @@
 
     .ico {
         display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         text-align: center;
         font-weight: bold;
     }
 }
 
-.close-button:hover, .min-button:hover, .max-button:hover {
-    .ico {
-        display: block;
-    }
+.close-button:active, .min-button:active, .max-button:active {
+    border-width: 2px;
 }
 
 .close-button {
@@ -46,7 +48,7 @@
 .min-button {
     left: 26px;
     background: #ea4;
-    border-color: #a62;
+    border-color: #c84;
     color: #611;
 }
 
@@ -56,4 +58,23 @@
     background: #4e4;
     border-color: #2a2;
     color: #161;
+}
+
+.container.minimized {
+    
+    .drag-handle {
+        width: 20vw;
+    }
+
+    .content {
+        display: none;
+    }
+
+    .min-button {
+        display: none;
+    }
+
+    .max-button {
+        display: block;
+    }
 }
