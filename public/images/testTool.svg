@@ -1,9 +1,0 @@
-<svg>
-    <circle cx="100" cy="100" r="50" fill="#FFF" />
-    <circle cx="150" cy="100" r="10" fill="red" />
-    <circle cx="125" cy="150" r="10" fill="red" />
-    <circle cx="75" cy="150" r="10" fill="red" />
-    <circle cx="50" cy="100" r="10" fill="red" />
-    <circle cx="75" cy="50" r="10" fill="red" />
-    <circle cx="125" cy="50" r="10" fill="red" />
-</svg>

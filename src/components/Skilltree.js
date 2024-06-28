@@ -5,8 +5,8 @@ import d3Tip from 'd3-tip';
 const Visualization = () => {
     useEffect(() => {
         d3.json('tree.json').then(data => {
-            const width = 500;
-            const height = 500;
+            const width = 300;
+            const height = 300;
             
             var tip = d3Tip()
                 .attr('class', 'd3-tip')
@@ -22,7 +22,7 @@ const Visualization = () => {
                 .force('center', d3.forceCenter(width / 2, height / 2))
                 .force('collide', d3.forceCollide().radius(15));
         
-            var svg = d3.select('svg')
+            var svg = d3.select('.d3')
                 .attr('width', width)
                 .attr('height', height)
                 .call(tip);
@@ -31,9 +31,10 @@ const Visualization = () => {
                 .data(data.edges)
                 .enter().append('line')
                 .attr('class', 'link')
-                .style('stroke', 'white'); 
+                .style('stroke', 'white')
+                .style('stroke-width', 2);
         
-            var color = d3.scaleOrdinal(d3.schemeCategory10);
+            var color = d3.scaleOrdinal(d3.schemeTableau10);
             var selectedNodes = new Set();
             selectedNodes.add(data.nodes[0].id);
         
@@ -41,10 +42,10 @@ const Visualization = () => {
                 .data(data.nodes)
                 .enter().append('circle')
                 .attr('class', 'node')
-                .attr('r', 10)
+                .attr('r', 7)
                 .attr('stroke', d => color(d.id.substring(0, 3)))
-                .attr('stroke-width', 5)
-                .attr('fill', d => d.id === data.nodes[0].id ? 'gold' : 'transparent')
+                .attr('stroke-width', 3)
+                .attr('fill', d => d.id === data.nodes[0].id ? 'gold' : '#222')
                 .on('mouseover', tip.show)
                 .on('mouseout', tip.hide)
                 .on('click', function(d) {
@@ -87,10 +88,10 @@ const Visualization = () => {
             data.nodes[0].fx = width / 2;
             data.nodes[0].fy = height / 2;
             var fixedNodeValues = [
-                {radius: 50, num: 5},
-                {radius: 100, num: 10},
-                {radius: 150, num: 10},
-                {radius: 200, num: 10}
+                {radius: 30, num: 5},
+                {radius: 60, num: 10},
+                {radius: 90, num: 10},
+                {radius: 120, num: 10}
             ];
             let nodeIndex = 1;
             let lastAngleStep = 0;
@@ -112,7 +113,7 @@ const Visualization = () => {
 
     return (
         <div id="skilltree">
-            <svg></svg>
+            <svg className="d3"></svg>
         </div>
     );
 }

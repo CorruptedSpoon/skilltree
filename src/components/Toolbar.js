@@ -1,5 +1,5 @@
 import React from 'react';
-import './css/Toolbar.css';
+import './styles/Toolbar.scss';
 
 const Toolbar = () => {
     const toolClick = (e) => {
