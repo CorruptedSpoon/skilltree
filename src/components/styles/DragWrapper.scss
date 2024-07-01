@@ -1,3 +1,5 @@
+@use '../../global/global.scss' as *;
+
 .react-draggable {
     position: absolute;
     border: 4px solid #ccc;
@@ -61,27 +63,24 @@
 
 .close-button {
     left: 6px;
-    background: #e44;
-    background: radial-gradient(circle, #e44 40%, #a22 100%);
+    background: $ico-red;
     border-color: #a22;
-    color: #611;
+    color: $ico-red-dark;
 }
 
 .min-button {
     left: 26px;
-    background: #ea4;
-    background: radial-gradient(circle, #ea4 40%, #c84 100%);
+    background: $ico-yellow;
     border-color: #c84;
-    color: #611;
+    color: $ico-yellow-dark;
 }
 
 .max-button {
     display: none;
     left: 26px;
-    background: #4e4;
-    background: radial-gradient(circle, #4e4 40%, #2a2 100%);
+    background: $ico-green;
     border-color: #2a2;
-    color: #161;
+    color: $ico-green-dark;
 }
 
 .container.minimized {
